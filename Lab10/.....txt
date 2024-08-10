@@ -1,0 +1,150 @@
+
+
+
+
+
+
+
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class BookServlet extends HttpServlet {
+    // ...
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+
+        if (action.equals("create")) {
+            String title = request.getParameter("title");
+            String author = request.getParameter("author");
+            String isbn = request.getParameter("isbn");
+
+            // Create a new book object
+            Book newBook = new Book(title, author, isbn);
+
+            // Add the new book to the collection
+            books.add(newBook);
+
+            // Redirect to the doGet() method to display the updated book list
+            response.sendRedirect(request.getContextPath() + "/books");
+        } else if (action.equals("update")) {
+            String isbn = request.getParameter("isbn");
+
+            // Find the book with the specified ISBN
+            Book updatedBook = null;
+            for (Book book : books) {
+                if (book.getIsbn().equals(isbn)) {
+                    updatedBook = book;
+                    break;
+                }
+            }
+
+            if (updatedBook != null) {
+                // Update the book details
+                updatedBook.setTitle(request.getParameter("title"));
+                updatedBook.setAuthor(request.getParameter("author"));
+
+                // Redirect to the doGet() method to display the updated book list
+                response.sendRedirect(request.getContextPath() + "/books");
+            }
+        } else if (action.equals("delete")) {
+            String isbn = request.getParameter("isbn");
+
+            // Find the book with the specified ISBN
+            Book bookToRemove = null;
+            for (Book book : books) {
+                if (book.getIsbn().equals(isbn)) {
+                    bookToRemove = book;
+                    break;
+                }
+            }
+
+            if (bookToRemove != null) {
+                // Remove the book from the collection
+                books.remove(bookToRemove);
+
+                // Redirect to the doGet() method to display the updated book list
+                response.sendRedirect(request.getContextPath() + "/books");
+            }
+        }
+    }
+    
+    // ...
+}
+
+
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+public class BookServlet extends HttpServlet {
+    // ...
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+
+        StringBuilder table = new StringBuilder();
+        table.append("<table>")
+                .append("<tr>")
+                .append("<th>Title</th>")
+                .append("<th>Author</th>")
+                .append("<th>ISBN</th>")
+                .append("</tr>");
+
+        for (Book book : books) {
+            table.append("<tr>")
+                    .append("<td>").append(book.getTitle()).append("</td>")
+                    .append("<td>").append(book.getAuthor()).append("</td>")
+                    .append("<td>").append(book.getIsbn()).append("</td>")
+                    .append("</tr>");
+        }
+
+        table.append("</table>");
+
+        response.getWriter().println(table.toString());
+    }
+
+    // ...
+}
+
+
+
+
+import javax.servlet.ServletConfig;
+import javax.servlet.http.HttpServlet;
+import java.util.ArrayList;
+
+public class BookServlet extends HttpServlet {
+    private ArrayList<Book> books;
+
+    public void init(ServletConfig config) {
+        books = new ArrayList<>();
+        books.add(new Book("Java how to program", "Deitel", "9780136053064"));
+        books.add(new Book("Head First C#", "Andrew Stellman", "9781491976708"));
+        books.add(new Book("C#", "Svetlin Nakov", "9789544007737"));
+    }
+    
+    // Other methods
+    
+    // Book class definition
+    public class Book {
+        private String title;
+        private String author;
+        private String isbn;
+
+        public Book(String title, String author, String isbn) {
+            this.title = title;
+            this.author = author;
+            this.isbn = isbn;
+        }
+
+        // Getters and setters
+    }
+}

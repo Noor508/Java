@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html  lang="en">
+<head>
+
+
+<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login NOOR </title>
+<script  type="text/javascript">
+
+
+function validate()
+
+{
+
+ var Username= document.getElementById('username').value;
+ var Password= document.getElementById('password').value;
+	if(Username === "")
+	{
+		document.getElementById('uname').innerHTML="first name is empty";	
+		return false;
+	}
+	
+	
+	if(Password === "")
+	{
+		document.getElementById('pass').innerHTML="Password is empty";	
+		return false;
+	}
+ return true;
+}
+
+</script>
+
+
+</head>
+
+
+<body>
+
+
+<h1>Login </h1>
+
+
+
+<form  name ="login"  onsubmit="return validate()" >
+<table>
+
+<tbody>
+	<tr>
+		<td>Username:</td>
+		<td><input type="text" name="name:" id="username"><div id="uname" ></div>
+
+	</td> 
+	
+	</tr>
+	
+	
+	<tr>
+		<td>Password:</td>
+		<td><input type="password" name="Password:" id="password"><div id="pass" ></div></td>
+	</tr>
+	
+	
+	
+   <td><button onclick="return validate()">Login</button></td>
+   <td> Not yet a Member?<a href="signup.html" target="_blank">Register</a></td>
+   </tr>
+   
+</tbody>
+   
+</table>
+</form>
+</body>
+</html>
+

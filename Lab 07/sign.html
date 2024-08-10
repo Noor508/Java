@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>SIGN UP FORM</title>
+<script>
+	
+	
+function validate()
+{	
+
+	if ( document.SignUp.uname.value == "" )
+	    {
+			document.getElementById("uname").innerHTML = "Plzz enter username";			
+			return false;
+	    }
+		
+		
+	if ( document.SignUp.lname.value == "" )
+	    {
+			document.getElementById("lname").innerHTML = "Last name is empty!!";			
+
+			return false;
+		}
+	
+
+	if ( document.SignUp.email.value == "" )
+	    {
+			document.getElementById("email").innerHTML = "email is empty!!";			
+			return false;
+	    }
+	
+	
+	if ( document.SignUp.address1.value == "" )
+	{	
+			document.getElementById("Address").innerHTML = "Address is empty!!";	
+			return false;
+	}
+	
+	
+			
+	if ( document.SignUp.city.value == "" )
+	{					
+	document.getElementById("city").innerHTML = "CITY empty!!";	
+
+			return false;
+	}
+		
+			
+	if ( document.SignUp.Country.value == "" )
+	{		
+		document.getElementById("country").innerHTML = "Country empty!!";
+			return false;
+	}
+		
+		
+
+	return true;
+
+}
+
+
+function validateEmail(email) {
+  var atIndex = email.indexOf('@');
+  var dotIndex = email.lastIndexOf('.');
+
+  if (atIndex === -1 || atIndex === 0 || atIndex === email.length - 1) {
+    return false;
+  }
+
+ 
+  if (dotIndex === -1 || dotIndex === 0 || dotIndex === email.length - 1) {
+    return false;
+  }
+
+ 
+  if (dotIndex < atIndex) {
+    return false;
+  }
+
+  return true;
+}
+function number(event)
+	{
+		var keychar;
+			
+		keychar = event.key;
+		alert(event.key)	
+		
+		// alphas and numbers
+		if ((("+-0123456789").indexOf(keychar) > -1))
+		   return true;
+		else
+		   return false;
+	}
+	
+
+	 
+
+</script>
+</head>
+
+
+
+<body>
+    
+	<form name="SignUp" onsubmit="return validate() ">
+
+   
+	<table>
+		
+	
+ <tr>
+		<td> First,Last Name:</td>
+			<td>
+				
+				<input type="text"  name="uname" > 
+				<div id= "uname"> </div>
+			
+		
+			</td>
+			
+			<td>
+				<input type="text" name="lname" >
+				<div id= "lname"> </div>
+			</td>
+
+</tr>
+	  
+	  
+	  <br>
+
+<tr>
+			<td> 
+				Organization:
+			</td>
+			<td>
+				<input type="text"  name="Organization" > 
+			</td>
+</tr>
+	   
+<tr>
+		<td> 
+				Email Address:
+			</td>
+			<td>
+				<input type="email" name="email"  onclick="return emailValidation(event)">
+				<div id= "email"> </div>
+			</td>
+ </tr>
+	   
+	   
+<tr>
+			<td> 
+				Work Phone: 
+			</td>
+			
+			
+			<td>
+				<input type="text"  name="Work_Phone" onKeyPress="return number(event)">
+			</td>
+ </tr>
+	   
+<tr>
+			<td> 
+				Home Phone: 
+			</td>
+			<td>
+				<input type="text"  name="Home_phone" onKeyPress="return number(event)" >
+			</td>
+</tr>
+	   
+<tr>
+		   <td>
+				Cell Phone
+		   </td>
+		   <td>
+				<input type="text" name="Cell_phone" onKeyPress="return number(event)">
+		   </td>
+</tr>
+	   
+	   
+<tr>
+		   <td>
+				Fax
+		   </td>
+		   <td>
+				<input type="text" name="Fax" onKeyPress="return number(event)">
+		   </td>
+ </tr>
+		
+<tr>
+	   <td>
+		Address 1*: 
+		   </td>
+		   
+		   <td>
+				<input type="text" name="address1" >
+				<div id= "Address"> </div>
+		   </td>
+</tr>
+	   
+	   
+<tr>
+		   <td>
+			Address 2: 
+		   </td>
+		   
+		   <td>
+				<input type="text" name="address2">
+		   </td>
+</tr>
+	   
+	   
+<tr>
+		   <td>
+				City*: 
+		   </td>
+		   
+		   <td>
+				<input type="text" name="city">
+				<div id= "city"> </div>
+		   </td>
+</tr>
+		
+		
+		
+<tr>
+		   <td>
+				State/Province:
+		   </td>
+		   
+		   <td>
+				<input type="text" name="State">
+		   </td>
+</tr>
+	   
+	   
+	   
+	   
+<tr>
+		   <td>
+				Zip/Postal Code:
+		   </td>
+			
+		   <td>
+				<input type="text" name="postal_code" onKeyPress="return number(event)"> 
+		   </td>
+</tr>
+	   
+<tr>
+		   <td>
+				Country:
+		   </td>
+				
+			<td>
+				<input type="text" name="Country">
+			    <div id= "country"> </div>
+		   </td>
+</tr>
+	   
+<tr>
+		   <td>
+			*-required fields
+		   </td>
+	   
+		   <td>
+				<input type="submit" value="Submit" >
+		   </td>
+</tr>
+	   
+		
+	
+
+		
+
+
+</table>
+</form>
+
+</body>
+</html>
+
+

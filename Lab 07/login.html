@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+
+    <script type="text/javascript">
+    function validate(){
+     if (document.login.first.value == "" )
+	    {
+			document.getElementById('name').innerHTML="username is empty!!"		
+			return false;
+	    }
+      if (document.login.password.value == "" )
+	    {
+			document.getElementById('password').innerHTML="enter password!!"			
+			return false;
+	    }
+}
+    </script>
+</head>
+<body>
+        
+<div class="container">
+<h1 class="login">Login Form</h1>
+<form name="login">
+<table>
+
+   <tbody>
+   <tr>
+   <td>Username:</td>
+   <td><input type="text" name="first"><div id="name"></div></td>
+   </tr>
+
+   <tr>
+   <td>Password</td>
+   <td><input type="password" name="password"><div id="password"></div></td>
+   </tr>
+   
+   <tr>
+   <td><button onclick="return validate()">Login</button></td>
+   <td> Not yet a Member?<a href="signup.html" target="_blank">Register</a></td>
+   </tr>
+
+   
+   </tbody>
+
+</table>
+</form>
+</body>
+</html>

@@ -1,0 +1,340 @@
+ import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class BookServlet extends HttpServlet {
+    private ArrayList<Book> bookList;
+
+    @Override
+    public void init() throws ServletException {
+        bookList = new ArrayList<>();
+        bookList.add(new Book("Java how to program", "Deitel", "9780136053064"));
+        bookList.add(new Book("Head First C#", "Andrew Stellman", "9781491976708"));
+        bookList.add(new Book("C#", "Svetlin Nakov", "9789544007737"));
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletR…
+ public class Book {
+    private String title;
+    private String author;
+    private String ISBN;
+
+    public Book(String title, String author, String ISBN) {
+        this.title = title;
+        this.author = author;
+        this.ISBN = ISBN;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getISBN() {
+        return ISBN;
+    }
+
+    public void setISBN(String ISBN) {
+        this.ISBN = ISBN;
+    }
+}
+ <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         id="WebApp_ID" version="4.0">
+
+    <display-name>BookServlet</display-name>
+
+    <servlet>
+        <servlet-name>BookServlet</servlet-name>
+        <servlet-class>com.example.BookServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>BookServlet</servlet-name>
+        <url-pattern>/books</url-pattern>
+    </servlet-mapping>
+
+</web-app>
+[8:21 AM, 6/23/2023] Rabiya: <!DOCTYPE html>
+<html>
+<head>
+    <title>Book Collection</title>
+</head>
+<body>
+    <h1>Book Collection</h1>
+    <table border="1">
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>ISBN</th>
+        </tr>
+        <% for (Book book : bookList) { %>
+            <tr>
+                <td><%= book.getTitle() %></td>
+                <td><%= book.getAuthor() %></td>
+                <td><%= book.getISBN() %></td>
+            </tr>
+        <% } %>
+    </table>
+
+    <h2>Add Book</h2>
+    <form action="/books" method="post">
+        <input type="hidden" name="action" value="create">
+        <label>Title:</label>
+        <input type="text" name="title"><br>
+        <label>Author:</label>
+        <input type="text" name="author"><br>
+  …
+ import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class BookServlet extends HttpServlet {[8:18 AM, 6/23/2023] Rabiya: import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class BookServlet extends HttpServlet {
+    private ArrayList<Book> bookList;
+
+    @Override
+    public void init() throws ServletException {
+        bookList = new ArrayList<>();
+        bookList.add(new Book("Java how to program", "Deitel", "9780136053064"));
+        bookList.add(new Book("Head First C#", "Andrew Stellman", "9781491976708"));
+        bookList.add(new Book("C#", "Svetlin Nakov", "9789544007737"));
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        out.println("<html><head><title>Book Collection</title></head><body>");
+        out.println("<h1>Book Collection</h1>");
+        out.println("<table border='1'>");
+        out.println("<tr><th>Title</th><th>Author</th><th>ISBN</th></tr>");
+
+        for (Book book : bookList) {
+            out.println("<tr>");
+            out.println("<td>" + book.getTitle() + "</td>");
+            out.println("<td>" + book.getAuthor() + "</td>");
+            out.println("<td>" + book.getISBN() + "</td>");
+            out.println("</tr>");
+        }
+
+        out.println("</table>");
+        out.println("<h1>Add Book</h1>");
+        out.println("<form action='/books' method='post'>");
+        out.println("<input type='hidden' name='action' value='create'>");
+        out.println("<label>Title:</label>");
+        out.println("<input type='text' name='title'><br>");
+        out.println("<label>Author:</label>");
+        out.println("<input type='text' name='author'><br>");
+        out.println("<label>ISBN:</label>");
+        out.println("<input type='text' name='isbn'><br>");
+        out.println("<input type='submit' value='Add Book'>");
+        out.println("</form>");
+
+        out.println("<h1>Update Book</h1>");
+        out.println("<form action='/books' method='post'>");
+        out.println("<input type='hidden' name='action' value='update'>");
+        out.println("<label>ISBN:</label>");
+        out.println("<input type='text' name='isbn'><br>");
+        out.println("<label>New Title:</label>");
+        out.println("<input type='text' name='title'><br>");
+        out.println("<label>New Author:</label>");
+        out.println("<input type='text' name='author'><br>");
+        out.println("<input type='submit' value='Update Book'>");
+        out.println("</form>");
+
+        out.println("<h1>Delete Book</h1>");
+        out.println("<form action='/books' method='post'>");
+        out.println("<input type='hidden' name='action' value='delete'>");
+        out.println("<label>ISBN:</label>");
+        out.println("<input type='text' name='isbn'><br>");
+        out.println("<input type='submit' value='Delete Book'>");
+        out.println("</form>");
+
+        out.println("</body></html>");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+
+        if (action != null) {
+            switch (action) {
+                case "create":
+                    String title = request.getParameter("title");
+                    String author = request.getParameter("author");
+                    String isbn = request.getParameter("isbn");
+                    bookList.add(new Book(title, author, isbn));
+                    break;
+                case "update":
+                    isbn = request.getParameter("isbn");
+                    for (Book book : bookList) {
+                        if (book.getISBN().equals(isbn)) {
+                            title = request.getParameter("title");
+                            author = request.getParameter("author");
+                            book.setTitle(title);
+                            book.setAuthor(author);
+                            break;
+                        }
+                    }
+                    break;
+                case "delete":
+                    isbn = request.getParameter("isbn");
+                    bookList.removeIf(book -> book.getISBN().equals(isbn));
+                    break;
+            }
+        }
+
+        doGet(request, response);
+    }
+}
+[8:18 AM, 6/23/2023] Rabiya: public class Book {
+    private String title;
+    private String author;
+    private String ISBN;
+
+    public Book(String title, String author, String ISBN) {
+        this.title = title;
+        this.author = author;
+        this.ISBN = ISBN;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getISBN() {
+        return ISBN;
+    }
+
+    public void setISBN(String ISBN) {
+        this.ISBN = ISBN;
+    }
+}
+
+
+
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         id="WebApp_ID" version="4.0">
+
+    <display-name>BookServlet</display-name>
+
+    <servlet>
+        <servlet-name>BookServlet</servlet-name>
+        <servlet-class>com.example.BookServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>BookServlet</servlet-name>
+        <url-pattern>/books</url-pattern>
+    </servlet-mapping>
+
+</web-app>
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Collection</title>
+</head>
+<body>
+    <h1>Book Collection</h1>
+    <table border="1">
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>ISBN</th>
+        </tr>
+        <% for (Book book : bookList) { %>
+            <tr>
+                <td><%= book.getTitle() %></td>
+                <td><%= book.getAuthor() %></td>
+                <td><%= book.getISBN() %></td>
+            </tr>
+        <% } %>
+    </table>
+
+    <h2>Add Book</h2>
+    <form action="/books" method="post">
+        <input type="hidden" name="action" value="create">
+        <label>Title:</label>
+        <input type="text" name="title"><br>
+        <label>Author:</label>
+        <input type="text" name="author"><br>
+        <label>ISBN:</label>
+        <input type="text" name="isbn"><br>
+        <input type="submit" value="Add Book">
+    </form>
+
+    <h2>Update Book</h2>
+    <form action="/books" method="post">
+        <input type="hidden" name="action" value="update">
+        <label>ISBN:</label>
+        <input type="text" name="isbn"><br>
+        <label>New Title:</label>
+        <input type="text" name="title"><br>
+        <label>New Author:</label>
+        <input type="text" name="author"><br>
+        <input type="submit" value="Update Book">
+    </form>
+
+    <h2>Delete Book</h2>
+    <form action="/books" method="post">
+        <input type="hidden" name="action" value="delete">
+        <label>ISBN:</label>
+        <input type="text" name="isbn"><br>
+        <input type="submit" value="Delete Book">
+    </form>
+</body>
+</html>
+
+
+
